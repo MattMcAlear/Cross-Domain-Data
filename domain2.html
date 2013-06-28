@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<meta charset="utf8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <meta name="description" content="cross domain talk">
+        <meta name="author" content="Matt McAlear">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>Domain 1</title>
+        <script type="text/javascript" src="js/crossDomainData.js"></script>
+    </head>
+	<body>
+		<h1>Domain 1</h1>
+		<div id="data"></div>
+		
+		<script type="text/javascript">						
+			//respond to events
+			window.addEventListener('message',function(event) {
+				if(event.origin !== 'http://localhost') return;
+				console.log('message received: ' + event.data,event);
+				
+				var requested = {
+					key: event.data,
+					value: localStorage.getItem(event.data)
+				};
+				
+				event.source.postMessage(JSON.stringify(requested),event.origin);
+			},false);		
+		</script>
+    </body>
+</html>
