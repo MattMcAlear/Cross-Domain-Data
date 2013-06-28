@@ -12,14 +12,16 @@
 		<h1>Domain 1</h1>
 		<div id="data"></div>
 		
-		<script type="text/javascript">						
+		<script type="text/javascript">
+			var key = "KeyName";				
 			var remoteStorage = new CrossDomainData("http://localhost", "/crossDomainData/domain2.html");
 			
 			var refreshIntervalId = setInterval(function(){ //The first iteration init's it, the next are sending request once iFrame loads
-				if(remoteStorage.requestData("KeyName", "local")){ //Key, storage type
+				if(remoteStorage.requestData(key, "local")){ //Key, storage type
 					clearInterval(refreshIntervalId);
+					document.getElementById('data').innerHTML=localStorage.getItem(key);
 				}
-			}, .1);			
+			}, .1);
 		</script>
     </body>
 </html>
